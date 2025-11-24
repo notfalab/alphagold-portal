@@ -1,0 +1,37 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Usaremos SQLite para desarrollo local (fácil y rápido). Luego cambiamos a Postgres.
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String?
+  telegramId    String?   @unique // El ID de Telegram para el Bot
+  role          String    @default("USER") // USER o ADMIN
+  createdAt     DateTime  @default(now())
+  
+  subscription  Subscription?
+}
+
+model Subscription {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  status          String   @default("INACTIVE") // ACTIVE, INACTIVE, CANCELLED
+  planType        String   @default("MONTHLY")
+  startDate       DateTime @default(now())
+  endDate         DateTime? 
+  autoRenew       Boolean  @default(false)
+  
+  // Datos para pasarelas de pago
+  stripeCustomerId String?
+  lastPaymentId    String?
+}
