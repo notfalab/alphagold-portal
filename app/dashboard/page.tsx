@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import BuyButton from "./BuyButton";
-import LogoutButton from "./LogoutButton"; // <--- IMPORTAMOS EL NUEVO BOTÓN
+import LogoutButton from "./LogoutButton";
 import Aurora from "../components/Aurora";
 
 export default async function Dashboard() {
@@ -45,10 +45,7 @@ export default async function Dashboard() {
                 </div>
                 <div className="flex items-center gap-6">
                     <span className="text-gray-300 text-sm hidden sm:block tracking-wide font-medium drop-shadow-md">{user?.email}</span>
-
-                    {/* AQUÍ ESTÁ EL CAMBIO: Usamos el componente en lugar del enlace <a> */}
                     <LogoutButton />
-
                 </div>
             </nav>
 
@@ -79,7 +76,7 @@ export default async function Dashboard() {
                     <div className="p-8 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col justify-center items-start relative">
                         {isActive ? (
                             <a
-                                href="https://t.me/AlphaGold_Bot"
+                                href="https://t.me/AlphaGold_VIP_Bot" // <--- CORREGIDO AQUÍ
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-full py-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(37,99,235,0.4)] transition transform hover:scale-[1.02] flex items-center justify-center gap-3 decoration-0"
@@ -118,7 +115,8 @@ export default async function Dashboard() {
                             </div>
                         </div>
                         <p className="text-xs text-gray-500">
-                            * To link your account, go to <strong>@AlphaGold_Bot</strong> on Telegram and type: <code className="text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded">/login {user?.email}</code>
+                            {/* CORREGIDO AQUÍ ABAJO */}
+                            * To link your account, go to <strong>@AlphaGold_VIP_Bot</strong> on Telegram and type: <code className="text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded">/login {user?.email}</code>
                         </p>
                     </div>
                 </div>
